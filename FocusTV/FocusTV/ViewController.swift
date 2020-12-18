@@ -50,6 +50,19 @@ class ViewController: UIViewController {
             // otherwise tell the focus guide to redirect to the next field
             focusGuide.preferredFocusEnvironments = [textField]
         }
+        
+        if context.nextFocusedView == textField {
+            // we're moving to the text field - animate the tip label
+            coordinator.addCoordinatedAnimations ({
+                self.textFieldTip.alpha = 1
+            })
+        } else if context.previouslyFocusedView == textField {
+            // we're moving away from the text field - animate out the tip label
+            coordinator.addCoordinatedAnimations ({
+                self.textFieldTip.alpha = 0
+            })
+            
+        }
     }
 
 }
