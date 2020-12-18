@@ -15,6 +15,10 @@ class ViewController: UIViewController {
     
     var focusGuide: UIFocusGuide!
     
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return [textField]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,10 +30,15 @@ class ViewController: UIViewController {
         focusGuide.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         focusGuide.preferredFocusEnvironments = [nextButton]
+        
+        restoresFocusAfterTransition = false
     }
     
     @IBAction func showAlert(_ sender: UIButton) {
-        //
+        let ac = UIAlertController(title: "Hello", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        present(ac, animated: true)
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
